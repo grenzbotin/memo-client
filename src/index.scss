@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+}
+
+$isPlaying-bg: #7cb342;
+$host-player-color: #3949ab;
+$opponent-player-color: #00897b;
+
+:root {
+  --font-size: 16px;
+}
+
+@import "@picocss/pico/scss/pico";

@@ -1,0 +1,86 @@
+@import "../../../index.scss";
+
+.hud {
+  display: flex;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  background-color: $grey-900;
+  padding: 0.3rem 1rem;
+  z-index: 1;
+
+  .host {
+    color: #bbc6ce;
+    .game_player_card.selected {
+      border: 1px solid $host-player-color;
+      color: $white;
+      background-color: transparentize($host-player-color, 0.5);
+    }
+  }
+
+  .score {
+    flex: 1;
+    height: fit-content;
+    align-self: center;
+    display: flex;
+
+    .host_score {
+      background-color: $host-player-color;
+      height: 20px;
+      border-radius: 5px;
+      margin: 0 0.5rem;
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .neutral_score {
+      background-color: transparent;
+      height: 20px;
+    }
+
+    .opponent_score {
+      background-color: $opponent-player-color;
+      height: 20px;
+      border-radius: 5px;
+      margin: 0 0.5rem;
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .opponent {
+    .game_player_card {
+      justify-content: end;
+      > div > div {
+        text-align: end;
+      }
+      color: #bbc6ce;
+      background-color: transparent;
+      &.selected {
+        border: 1px solid $opponent-player-color;
+        background-color: transparentize($opponent-player-color, 0.5);
+      }
+    }
+  }
+
+  .game_player_card {
+    padding: 0.2rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    max-width: 20vw;
+    border: 1px solid transparent;
+    > div {
+      padding: 0.2rem;
+      overflow: hidden;
+      > div {
+        padding: 0;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    img {
+      margin: 0 0.3rem;
+    }
+  }
+}

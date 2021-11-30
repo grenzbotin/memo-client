@@ -1,0 +1,97 @@
+@import "../../../index.scss";
+
+.image_checkbox {
+  margin-bottom: 0.3rem;
+}
+
+article.playerslist__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 1.5rem;
+  padding-bottom: 38px;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 1rem;
+
+  > p {
+    text-overflow: ellipsis;
+    width: 100%;
+    font-weight: bold;
+    overflow: hidden;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  &.active:hover {
+    background-color: var(--progress-background-color);
+    cursor: pointer;
+  }
+
+  &.active:focus-visible {
+    outline: 2px solid var(--color);
+    z-index: 1;
+  }
+
+  > img {
+    margin-bottom: 0.5rem;
+  }
+
+  > footer {
+    font-size: 0.6rem;
+    background-color: var(--secondary);
+    color: var(--secondary-inverse);
+
+    width: 100%;
+    text-align: center;
+    padding: 0.3rem;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: $primary-700;
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    height: 50px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: $white;
+    > span {
+      margin-left: 0.5rem;
+    }
+
+    &.isPlaying {
+      background-color: $isPlaying-bg;
+      color: $white;
+    }
+
+    > button {
+      padding: 0;
+      margin: 0 0 0 0.5rem;
+      height: 30px;
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $white;
+      border-color: $white;
+      &:hover {
+        background-color: $primary-900;
+        cursor: pointer;
+      }
+      &:focus-visible {
+        outline: 2px solid $white;
+        z-index: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import "../../index.scss";
+
+.game {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.loadingWrapper {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.game-wrapper {
+  padding: 0.3rem;
+}

@@ -1,0 +1,28 @@
+@import "../../index.scss";
+
+nav {
+  background-color: $grey-900;
+  a {
+    color: $white;
+  }
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.profile {
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-self: center;
+  white-space: nowrap;
+  text-align: right;
+  margin-right: 1rem;
+  color: $white;
+
+  img {
+    margin: 0 0.5rem;
+  }
+}
