@@ -12,7 +12,7 @@ function Navbar() {
       <ul>
         <li>
           <Link to="/" className="contrast" tabIndex={0}>
-            <strong>Memoastic</strong>
+            <strong>Memory</strong>
           </Link>
         </li>
       </ul>
