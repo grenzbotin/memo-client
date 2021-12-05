@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import "./NewRequest.scss";
 import { useAppSelector } from "../../store";
 import { WebSocketContext } from "../WebsocketContext";
+import Modal from "../Modal";
 
 function NewRequest() {
   const { requests, inviteSend } = useAppSelector(
@@ -40,8 +40,9 @@ function NewRequest() {
 
   return (
     requests[0] && (
-      <div id="requestModal" className="modal">
-        <div className="modal-box">
+      <Modal
+        id="requestModal"
+        modalHeadPicture={
           <img
             alt={requests[0].invited_by}
             height={64}
@@ -51,33 +52,23 @@ function NewRequest() {
                 .default
             }
           />
-          <div className="modal-inner">
-            <div className="modal-content">
-              <div>
-                <b>{requests[0].invited_by}</b> invited you to a new game!
-              </div>
-
-              <div className="modal-actions">
-                <button
-                  className="secondary"
-                  onClick={(e) =>
-                    handleCancelGameRequest(e, requests[0].gameId)
-                  }
-                >
-                  Sorry :/
-                </button>
-                <button
-                  onClick={(e) =>
-                    handleAcceptGameRequest(e, requests[0].gameId)
-                  }
-                >
-                  Let's play
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        }
+        modalContent={
+          <>
+            <b>{requests[0].invited_by}</b> invited you to a new game!
+          </>
+        }
+        modalActions={{
+          secondary: {
+            action: (e) => handleCancelGameRequest(e, requests[0].gameId),
+            text: "Sorry :/",
+          },
+          primary: {
+            action: (e) => handleAcceptGameRequest(e, requests[0].gameId),
+            text: "Let's play",
+          },
+        }}
+      />
     )
   );
 }

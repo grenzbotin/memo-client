@@ -11,6 +11,7 @@ import { useAppSelector } from "../../../store";
 import { WebSocketContext } from "../../WebsocketContext";
 import { TPlayerPayload } from "../../../store/slices/players";
 import "./PlayerCard.scss";
+import Modal from "../../Modal";
 
 function PlayerCard({
   player,
@@ -82,75 +83,68 @@ function PlayerCard({
     <>
       {/* OptionsModal */}
       {showModal && (
-        <div id="gameOptionModal" className="modal">
-          <div className="modal-box">
-            <div className="modal-inner">
-              <div className="modal-content">
-                <label htmlFor="game-options">
-                  Select the size of your board
-                </label>
-                <select
-                  name="boardSize"
-                  id="boardSize"
-                  value={boardSize}
-                  onChange={(e) => setBoardSize(e.target.value)}
-                >
-                  {GAME_SIZES.map((size) => (
-                    <option key={size} value={size}>
-                      {size / 2}x{size / 2}
-                    </option>
-                  ))}
-                </select>
-                <label htmlFor="game-options">
-                  Time until a false match pair is turned again (in seconds):
-                </label>
-                <select
-                  name="timeUntilRelease"
-                  id="timeUntilRelease"
-                  value={timeUntilRelease}
-                  onChange={(e) => setTimeUntilRelease(e.target.value)}
-                >
-                  {TIMING_UNTIL_FALSE_MATCH_RELEASE.map((time) => (
-                    <option key={time} value={time}>
-                      {time}s
-                    </option>
-                  ))}
-                </select>
-
-                <legend>
-                  Please select the image categories for your game:
-                </legend>
-                {IMAGE_CATEGORIES.map((item) => (
-                  <div key={item} className="image_checkbox">
-                    <input
-                      type="checkbox"
-                      name="image_categories"
-                      value={item}
-                      onChange={handleSelectionChange}
-                      checked={imageCategories.includes(item)}
-                    />
-                    {item}{" "}
-                  </div>
+        <Modal
+          id="createGame"
+          modalContent={
+            <>
+              <label htmlFor="game-options">
+                Select the size of your board
+              </label>
+              <select
+                name="boardSize"
+                id="boardSize"
+                value={boardSize}
+                onChange={(e) => setBoardSize(e.target.value)}
+              >
+                {GAME_SIZES.map((size) => (
+                  <option key={size} value={size}>
+                    {size / 2}x{size / 2}
+                  </option>
                 ))}
+              </select>
+              <label htmlFor="game-options">
+                Time until a false match pair is turned again (in seconds):
+              </label>
+              <select
+                name="timeUntilRelease"
+                id="timeUntilRelease"
+                value={timeUntilRelease}
+                onChange={(e) => setTimeUntilRelease(e.target.value)}
+              >
+                {TIMING_UNTIL_FALSE_MATCH_RELEASE.map((time) => (
+                  <option key={time} value={time}>
+                    {time}s
+                  </option>
+                ))}
+              </select>
 
-                <div className="modal-actions">
-                  <button
-                    className="secondary"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    disabled={!imageCategories.length}
-                    onClick={(e) => handleSendRequest(e)}
-                  >
-                    Ask for match
-                  </button>
+              <legend>Please select the image categories for your game:</legend>
+              {IMAGE_CATEGORIES.map((item) => (
+                <div key={item} className="image_checkbox">
+                  <input
+                    type="checkbox"
+                    name="image_categories"
+                    value={item}
+                    onChange={handleSelectionChange}
+                    checked={imageCategories.includes(item)}
+                  />
+                  {item}{" "}
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              ))}
+            </>
+          }
+          modalActions={{
+            secondary: {
+              action: () => setShowModal(false),
+              text: "Close",
+            },
+            primary: {
+              action: (e) => handleSendRequest(e),
+              text: "Ask for match",
+              disabled: !imageCategories.length,
+            },
+          }}
+        />
       )}
       {/* PlayerCard */}
       <article

@@ -9,6 +9,7 @@ import { WebSocketContext } from "../WebsocketContext";
 import { resetCurrentGame } from "../../store/slices/games";
 import ScoreHud from "./ScoreHud";
 import { GAME_FINISHED } from "../../configs/game";
+import Modal from "../Modal";
 
 const preloadImage = (src: string) =>
   new Promise((r) => {
@@ -54,20 +55,16 @@ function Game() {
   if (current?.opponentLeft) {
     return (
       <main>
-        <div id="requestModal" className="modal">
-          <div className="modal-box">
-            <div className="modal-inner">
-              <div className="modal-content">
-                <div>Your opponent left :(</div>
-                <div className="modal-actions">
-                  <button onClick={(e) => handleReturnToLobby(e)}>
-                    Return to Lobby
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Modal
+          id="opponentLeft"
+          modalContent={<>Your opponent left :(</>}
+          modalActions={{
+            primary: {
+              action: (e) => handleReturnToLobby(e),
+              text: "Back to lobby",
+            },
+          }}
+        />
       </main>
     );
   }
@@ -75,20 +72,16 @@ function Game() {
   if (current?.status === GAME_FINISHED) {
     return (
       <main>
-        <div id="requestModal" className="modal">
-          <div className="modal-box">
-            <div className="modal-inner">
-              <div className="modal-content">
-                <div>{current.winner} won!</div>
-                <div className="modal-actions">
-                  <button onClick={(e) => handleReturnToLobby(e)}>
-                    Return to Lobby
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Modal
+          id="gameFinished"
+          modalContent={<>{current.winner} won!</>}
+          modalActions={{
+            primary: {
+              action: (e) => handleReturnToLobby(e),
+              text: "Return to Lobby",
+            },
+          }}
+        />
       </main>
     );
   }
