@@ -26,13 +26,13 @@ function GameCard({
       onClick={handleSelect}
     >
       <div className={`card-content ${card.imgSrc && "flipped"}`}>
-        <div className="cover" />
+        <div className={`cover ${card.solved ? "solved" : ""}`} />
         {card.imgSrc && (
           <div className="card-image">
             <img
               alt=""
               src={card.imgSrc}
-              className={`${card.solved ? "transparent" : ""}`}
+              className={`${card.solved ? "solved" : ""}`}
             />
           </div>
         )}
