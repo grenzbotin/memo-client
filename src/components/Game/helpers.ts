@@ -11,7 +11,7 @@ export const getCardSize = (
   cards: number
 ) => {
   const spacePerCard =
-    ((viewport.width - 40) * (viewport.height - 140)) / cards;
+    ((viewport.width - 60) * (viewport.height - 140)) / cards;
 
   return Math.sqrt(spacePerCard);
 };

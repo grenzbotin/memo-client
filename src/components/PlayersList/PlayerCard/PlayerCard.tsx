@@ -155,8 +155,11 @@ function PlayerCard({
       {/* PlayerCard */}
       <article
         className={`playerslist__card ${isClickable && "active"}`}
-        tabIndex={0}
+        tabIndex={isClickable ? 0 : undefined}
         onClick={() => isClickable && setShowModal(true)}
+        onKeyDown={(e) =>
+          isClickable && e.key === "Enter" && setShowModal(true)
+        }
       >
         {player.is_playing && <div className="label isPlaying">In game</div>}
         {inviteSend?.opponentId === player.id && (

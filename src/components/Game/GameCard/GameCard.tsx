@@ -24,8 +24,9 @@ function GameCard({
       style={{ height: cardSize, width: cardSize }}
       tabIndex={isSelectable ? 0 : undefined}
       onClick={handleSelect}
+      onKeyDown={(e) => e.key === "Enter" && handleSelect()}
     >
-      <div className={`card-content ${card.imgSrc && "flipped"}`}>
+      <div className={`card-content ${card.imgSrc ? "flipped" : ""}`}>
         <div className={`cover ${card.solved ? "solved" : ""}`} />
         {card.imgSrc && (
           <div className="card-image">
