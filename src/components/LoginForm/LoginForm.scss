@@ -1,0 +1,24 @@
+@import "../../index.scss";
+
+/* Avatar selector */
+article div:nth-of-type(2) {
+  display: none;
+  > img {
+    margin: 0 0.5rem 0.5rem 0;
+    border-radius: 32px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: transparent;
+
+    cursor: pointer;
+    &.selected {
+      border-color: $primary-700;
+      &:focus-visible {
+        outline: 2px solid var(--color);
+      }
+    }
+    &:focus-visible {
+      outline: 2px solid var(--color);
+    }
+  }
+}

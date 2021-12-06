@@ -10,8 +10,8 @@ import {
 import { useAppSelector } from "./store";
 import Login from "./containers/Login";
 import Lobby from "./containers/Lobby";
+import Game from "./containers/Game";
 import Footer from "./components/Footer";
-import Game from "./components/Game";
 import { useEffect } from "react";
 
 function RequireLogin({ children }: { children: JSX.Element }) {

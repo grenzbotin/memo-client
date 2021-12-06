@@ -3,12 +3,14 @@ import { useContext } from "react";
 import { useAppSelector } from "../../store";
 import { WebSocketContext } from "../WebsocketContext";
 import Modal from "../Modal";
+import { useFavicon } from "../../hooks/useFavicon";
 
 function NewRequest() {
   const { requests, inviteSend } = useAppSelector(
     (state) => state.gamesReducer
   );
   const { cancelGameRequest, acceptGameRequest } = useContext(WebSocketContext);
+  useFavicon(requests.length);
 
   if (!requests.length) return null;
 

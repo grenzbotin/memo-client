@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router";
 import { useContext, useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../store";
-import { getCardSize, getWindowDimensions } from "./helpers";
-import "./Game.scss";
-import GameCard from "./GameCard";
-import { WebSocketContext } from "../WebsocketContext";
-import { resetCurrentGame } from "../../store/slices/games";
-import ScoreHud from "./ScoreHud";
-import { GAME_FINISHED } from "../../configs/game";
-import Modal from "../Modal";
+import { useAppDispatch, useAppSelector } from "../store";
+import { getCardSize, getWindowDimensions } from "../components/Game/helpers";
+import "../components/Game/Game.scss";
+import GameCard from "../components/Game/GameCard";
+import { WebSocketContext } from "../components/WebsocketContext";
+import { resetCurrentGame } from "../store/slices/games";
+import ScoreHud from "../components/Game/ScoreHud";
+import { GAME_FINISHED } from "../configs/game";
+import Modal from "../components/Modal";
 
 const preloadImage = (src: string) =>
   new Promise((r) => {
@@ -41,20 +41,27 @@ function Game() {
     }
   }, [current?.imageUrls, current?.id, setGameStatusReady, isLoading]);
 
-  const cardSize =
-    (current && getCardSize(viewport, current?.gameBoard.length)) || 50;
-
-  const isWaiting = !current?.host.isReady || !current?.opponent.isReady;
-
   const handleReturnToLobby = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     dispatch(resetCurrentGame());
     navigate("/");
   };
 
-  if (current?.opponentLeft) {
-    return (
-      <main>
+  const renderModals = (
+    <>
+      {current?.status === GAME_FINISHED && (
+        <Modal
+          id="gameFinished"
+          modalContent={<>{current.winner} won!</>}
+          modalActions={{
+            primary: {
+              action: (e) => handleReturnToLobby(e),
+              text: "Return to lobby",
+            },
+          }}
+        />
+      )}
+      {current?.opponentLeft && (
         <Modal
           id="opponentLeft"
           modalContent={<>Your opponent left :(</>}
@@ -65,29 +72,17 @@ function Game() {
             },
           }}
         />
-      </main>
-    );
-  }
+      )}
+    </>
+  );
 
-  if (current?.status === GAME_FINISHED) {
-    return (
-      <main>
-        <Modal
-          id="gameFinished"
-          modalContent={<>{current.winner} won!</>}
-          modalActions={{
-            primary: {
-              action: (e) => handleReturnToLobby(e),
-              text: "Return to Lobby",
-            },
-          }}
-        />
-      </main>
-    );
-  }
+  const cardSize =
+    (current && getCardSize(viewport, current?.gameBoard.length)) || 50;
+  const isWaiting = !current?.host.isReady || !current?.opponent.isReady;
 
   return (
     <>
+      {renderModals}
       {current && (
         <ScoreHud
           host={current.host}
@@ -100,7 +95,7 @@ function Game() {
         {current && (isLoading || isWaiting) && (
           <div className="loadingWrapper">
             <span aria-busy="true">
-              {isLoading ? "Loading assets.." : "Waiting for opponent"}
+              {isLoading ? "Loading assets.." : "Waiting for opponent.."}
             </span>
           </div>
         )}
