@@ -6,7 +6,7 @@ function Login() {
     <>
       <Navbar />
       <main className="container">
-        <article className="grid">
+        <article className="grid loginForm">
           <LoginForm />
         </article>
       </main>

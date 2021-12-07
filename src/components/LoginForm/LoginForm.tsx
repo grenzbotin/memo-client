@@ -12,11 +12,13 @@ import {
 import { AVATARS } from "../../assets/avatars";
 import "./LoginForm.scss";
 import { isPasswordProtected } from "../../configs/settings";
+import Modal from "../Modal";
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { login } = useContext(WebSocketContext);
+  const [avatarModal, setAvatarModal] = useState(false);
 
   const { name, avatar, loggedIn, error } = useAppSelector(
     (state) => state.profileReducer
@@ -36,7 +38,11 @@ function LoginForm() {
     login({ name, avatar });
   };
 
-  const handleSelectAvatar = (avatar: string) => {
+  const handleSelectAvatar = (
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLImageElement>,
+    avatar: string
+  ) => {
+    e.stopPropagation();
     dispatch(changeAvatar({ avatar }));
   };
 
@@ -47,6 +53,11 @@ function LoginForm() {
     }
   };
 
+  const handleAvatarClose = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setAvatarModal(false);
+  };
+
   const isJoinDisabled =
     !name ||
     name.length > USERNAME_MAX_LENGTH ||
@@ -55,6 +66,35 @@ function LoginForm() {
 
   return (
     <>
+      {avatarModal && (
+        <Modal
+          id="requestModal"
+          modalContent={
+            <span className="avatar-selector">
+              <p>Select your avatar:</p>
+              {AVATARS.map((image) => (
+                <img
+                  key={image}
+                  alt={image}
+                  className={avatar === image ? "selected" : ""}
+                  src={require(`../../assets/avatars/${image}.png`).default}
+                  onClick={(e) => handleSelectAvatar(e, image)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && handleSelectAvatar(e, image)
+                  }
+                  tabIndex={0}
+                />
+              ))}
+            </span>
+          }
+          modalActions={{
+            primary: {
+              action: handleAvatarClose,
+              text: "Close",
+            },
+          }}
+        />
+      )}
       <div>
         <hgroup>
           <h1>Welcome!</h1>
@@ -82,21 +122,28 @@ function LoginForm() {
               required
             />
           )}
-          <button disabled={isJoinDisabled} className="contrast" type="submit">
+          <button
+            type="button"
+            className="secondary btn-select-avatar"
+            onClick={() => setAvatarModal(true)}
+          >
+            Select Avatar
+          </button>
+          <button disabled={isJoinDisabled} type="submit">
             Join
           </button>
           {error && error}
         </form>
       </div>
-      <div>
+      <div className="avatar-selector">
         {AVATARS.map((image) => (
           <img
             key={image}
             alt={image}
             className={avatar === image ? "selected" : ""}
             src={require(`../../assets/avatars/${image}.png`).default}
-            onClick={() => handleSelectAvatar(image)}
-            onKeyDown={(e) => e.key === "Enter" && handleSelectAvatar(image)}
+            onClick={(e) => handleSelectAvatar(e, image)}
+            onKeyDown={(e) => e.key === "Enter" && handleSelectAvatar(e, image)}
             tabIndex={0}
           />
         ))}

@@ -66,21 +66,29 @@
     margin: 0;
     display: flex;
     align-items: center;
-    width: 20vw;
     max-width: 20vw;
     border: 1px solid transparent;
     > div {
       padding: 0.2rem;
       overflow: hidden;
+      display: none;
       > div {
         padding: 0;
-        display: block;
         overflow: hidden;
         text-overflow: ellipsis;
       }
     }
     img {
       margin: 0 0.3rem;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .game_player_card {
+      width: 20vw;
+    }
+    .game_player_card > div {
+      display: block;
     }
   }
 }

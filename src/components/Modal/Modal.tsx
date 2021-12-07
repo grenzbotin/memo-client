@@ -28,8 +28,7 @@ function Modal({
         {modalHeadPicture}
         <div className="modal-inner">
           <div className="modal-content">
-            <div>{modalContent}</div>
-
+            {modalContent}
             <div className="modal-actions">
               {modalActions.secondary && (
                 <button
