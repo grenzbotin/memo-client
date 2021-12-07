@@ -8,10 +8,9 @@ import {
 } from "react-router-dom";
 
 import { useAppSelector } from "./store";
-import Login from "./containers/Login";
-import Lobby from "./containers/Lobby";
-import Game from "./containers/Game";
-import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Lobby from "./pages/Lobby";
+import Game from "./pages/Game";
 import { useEffect } from "react";
 
 function RequireLogin({ children }: { children: JSX.Element }) {
@@ -64,7 +63,6 @@ function App() {
   return (
     <BrowserRouter>
       <GameRoutes />
-      <Footer />
     </BrowserRouter>
   );
 }
