@@ -21,8 +21,8 @@ function Navbar() {
           Hello,
           <img
             alt={avatar}
-            height={32}
-            width={32}
+            height={42}
+            width={42}
             src={require(`../../assets/avatars/${avatar}.png`).default}
           />
           <span>{name}</span>

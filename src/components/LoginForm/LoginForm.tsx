@@ -140,6 +140,8 @@ function LoginForm() {
           <img
             key={image}
             alt={image}
+            height={64}
+            width={64}
             className={avatar === image ? "selected" : ""}
             src={require(`../../assets/avatars/${image}.png`).default}
             onClick={(e) => handleSelectAvatar(e, image)}
