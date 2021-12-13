@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import "./Navbar.scss";
 import { useAppSelector } from "../../store";
+import Logo from "../../assets/logo.svg";
 
 function Navbar() {
   const { avatar, name, loggedIn } = useAppSelector(
@@ -11,8 +12,8 @@ function Navbar() {
     <nav className="container-fluid">
       <ul>
         <li>
-          <Link to="/" className="contrast" tabIndex={0}>
-            <strong>Memory</strong>
+          <Link to="/" className="contrast logo" tabIndex={0}>
+            <img alt="" src={Logo} width={54} height={54} />
           </Link>
         </li>
       </ul>

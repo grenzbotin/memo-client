@@ -10,6 +10,10 @@ nav {
   top: 0;
   width: 100%;
   z-index: 1;
+
+  a.logo {
+    padding: 0.4rem;
+  }
 }
 
 .profile {
