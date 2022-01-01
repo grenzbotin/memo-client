@@ -98,12 +98,12 @@ function PlayerCard({
               >
                 {GAME_SIZES.map((size) => (
                   <option key={size} value={size}>
-                    {size / 2}x{size / 2}
+                    {size / 2} pairs
                   </option>
                 ))}
               </select>
               <label htmlFor="game-options">
-                Time until a false match pair is turned again (in seconds):
+                Time until a false pair is turned again (in seconds):
               </label>
               <select
                 name="timeUntilRelease"

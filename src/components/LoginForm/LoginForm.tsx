@@ -114,9 +114,9 @@ function LoginForm() {
           />
           {isPasswordProtected && (
             <input
-              type="password"
+              type="text"
               name="password"
-              placeholder="Alpha password"
+              placeholder="fourty-three plus thirty-two?"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

@@ -1,6 +1,6 @@
 // Game settings / config
 
-export const GAME_SIZES = [18, 36, 72, 144, 288];
+export const GAME_SIZES = [18, 36, 72, 144];
 export const IMAGE_CATEGORIES = [
   "cat",
   "dog",

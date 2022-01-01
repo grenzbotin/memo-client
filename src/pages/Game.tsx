@@ -45,13 +45,14 @@ function Game() {
   };
 
   if (current?.status === GAME_FINISHED) {
+    const { winner } = current;
     return (
       <Modal
         id="gameFinished"
-        modalContent={<>{current.winner} won!</>}
+        modalContent={<>{winner ? `${winner} won!` : `It's a draw!`}</>}
         modalActions={{
           primary: {
-            action: (e) => handleReturnToLobby(e),
+            action: handleReturnToLobby,
             text: "Return to lobby",
           },
         }}

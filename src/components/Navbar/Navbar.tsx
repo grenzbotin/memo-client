@@ -13,7 +13,8 @@ function Navbar() {
       <ul>
         <li>
           <Link to="/" className="contrast logo" tabIndex={0}>
-            <img alt="" src={Logo} width={54} height={54} />
+            <img alt="" src={Logo} width={40} height={40} />
+            Moneo
           </Link>
         </li>
       </ul>

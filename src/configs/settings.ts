@@ -1,1 +1,1 @@
-export const isPasswordProtected = process.env.NODE_ENV === "production";
+export const isPasswordProtected = true;

@@ -13,6 +13,10 @@ nav {
 
   a.logo {
     padding: 0.4rem;
+    font-weight: 600;
+    > img {
+      margin-right: .6rem;
+    }
   }
 }
 
