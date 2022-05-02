@@ -5,6 +5,7 @@ const initialState = {
   name: "",
   avatar: "bee",
   loggedIn: false,
+  mode: "",
   error: "",
 };
 
@@ -12,6 +13,10 @@ const profileSlice = createSlice({
   name: "profile",
   initialState: initialState,
   reducers: {
+    changeMode: (state, { payload }: PayloadAction<{ mode: string }>) => ({
+      ...state,
+      mode: payload.mode,
+    }),
     changeName: (state, { payload }: PayloadAction<{ name: string }>) => ({
       ...state,
       name: payload.name,
@@ -48,5 +53,5 @@ const profileSlice = createSlice({
 });
 
 export const profileReducer = profileSlice.reducer;
-export const { changeName, setLogin, changeAvatar, reset } =
+export const { changeName, changeMode, setLogin, changeAvatar, reset } =
   profileSlice.actions;

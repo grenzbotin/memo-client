@@ -11,7 +11,6 @@ function ScoreHud({
   hasTurn: string;
   max: number;
 }) {
-  console.log(hasTurn);
   return (
     <aside className="container-fluid hud">
       <div className="host">

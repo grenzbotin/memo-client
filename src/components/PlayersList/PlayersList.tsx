@@ -23,35 +23,37 @@ function PlayersList() {
     <main className="container">
       <hgroup>
         <h1>
-          {players.length} {players.length === 1 ? "player" : "players"} online
+          {players.length} {players.length === 1 ? "opponent" : "opponents"}{" "}
+          online
         </h1>
-        <h2>Click on a player card to ask for a match.</h2>
+        <h2>
+          {players.length === 0
+            ? "Wait in the lobby or try again later"
+            : "Click on a player card to ask for a match."}
+        </h2>
       </hgroup>
-      {playerChunks.length > 0
-        ? playerChunks.map((chunk, key) => (
-            <div key={`chunk-${key}`} className="grid">
-              {chunk.map((player, cKey) => {
-                const isClickable =
-                  !player.is_playing && inviteSend?.opponentId !== player.id;
+      {playerChunks.length > 0 &&
+        playerChunks.map((chunk, key) => (
+          <div key={`chunk-${key}`} className="grid">
+            {chunk.map((player, cKey) => {
+              const isClickable =
+                !player.is_playing && inviteSend?.opponentId !== player.id;
 
-                return (
-                  <Fragment key={`player-${player.name}`}>
-                    <PlayerCard player={player} isClickable={isClickable} />
-                    {/* Add empty divs for colspan */}
-                    {playerChunks.length - 1 === key &&
-                      chunk.length < CHUNK_LENGTH &&
-                      cKey === chunk.length - 1 &&
-                      Array(CHUNK_LENGTH - chunk.length)
-                        .fill(1)
-                        .map((_, emptyKey) => (
-                          <div key={`empty-${emptyKey}`} />
-                        ))}
-                  </Fragment>
-                );
-              })}
-            </div>
-          ))
-        : "No players online."}
+              return (
+                <Fragment key={`player-${player.name}`}>
+                  <PlayerCard player={player} isClickable={isClickable} />
+                  {/* Add empty divs for colspan */}
+                  {playerChunks.length - 1 === key &&
+                    chunk.length < CHUNK_LENGTH &&
+                    cKey === chunk.length - 1 &&
+                    Array(CHUNK_LENGTH - chunk.length)
+                      .fill(1)
+                      .map((_, emptyKey) => <div key={`empty-${emptyKey}`} />)}
+                </Fragment>
+              );
+            })}
+          </div>
+        ))}
     </main>
   );
 }

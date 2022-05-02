@@ -7,11 +7,12 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import { useAppSelector } from "./store";
+import { useAppDispatch, useAppSelector } from "./store";
 import Login from "./pages/Login";
 import Lobby from "./pages/Lobby";
 import Game from "./pages/Game";
 import { useEffect } from "react";
+import { changeMode } from "./store/slices/profile";
 
 function RequireLogin({ children }: { children: JSX.Element }) {
   const { name } = useAppSelector((state) => state.profileReducer);
@@ -24,10 +25,14 @@ function RequireLogin({ children }: { children: JSX.Element }) {
   return children;
 }
 
+const useQuery = () => new URLSearchParams(useLocation().search);
+
 function GameRoutes() {
   const { current } = useAppSelector((state) => state.gamesReducer);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const query = useQuery();
 
   // If game got started, let user switch to game page
   useEffect(() => {
@@ -35,6 +40,13 @@ function GameRoutes() {
       navigate("/game");
     }
   }, [current, navigate, location.pathname]);
+
+  useEffect(() => {
+    const mode = query.get("mode");
+    if (mode && mode !== "") {
+      dispatch(changeMode({ mode }));
+    }
+  }, [query, dispatch]);
 
   return (
     <Routes>

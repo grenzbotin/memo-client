@@ -1,5 +1,22 @@
 // Game settings / config
 
+type availableConfigOptions = {
+  [key: string]: {
+    sizes: number[],
+    imageCategories: string[],
+    timeUntilRelease: number[],
+  }
+}
+
+type configOptions = {
+  [key: string]: {
+    size: number,
+    imageCategories: string[],
+    timeUntilRelease: number,
+  }
+};
+
+
 export const GAME_SIZES = [18, 36, 72, 144];
 export const IMAGE_CATEGORIES = [
   "cat",
@@ -11,13 +28,30 @@ export const IMAGE_CATEGORIES = [
   "koala",
   "panda",
 ];
-
 export const TIMING_UNTIL_FALSE_MATCH_RELEASE = [2, 5, 10];
 
 export const defaultConfig = {
-  size: 72,
-  imageCategores: IMAGE_CATEGORIES,
+  size: 36,
+  imageCategories: IMAGE_CATEGORIES,
   timeUntilRelease: 5,
+};
+
+export const availableGameSettings: availableConfigOptions = {
+  default: {
+    imageCategories: IMAGE_CATEGORIES,
+    timeUntilRelease: TIMING_UNTIL_FALSE_MATCH_RELEASE,
+    sizes: GAME_SIZES,
+  },
+  wattx: {
+    imageCategories: ["juliusBye"],
+    timeUntilRelease: TIMING_UNTIL_FALSE_MATCH_RELEASE,
+    sizes: [36],
+  }
+};
+
+export const gameConfigs: configOptions = {
+  default: defaultConfig,
+  wattx: {...defaultConfig, imageCategories: ["juliusBye"]}
 };
 
 // GAME STATI

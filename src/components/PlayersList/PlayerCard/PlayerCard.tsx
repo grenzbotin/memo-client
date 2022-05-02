@@ -1,12 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { XIcon } from "@primer/octicons-react";
 
-import {
-  defaultConfig,
-  GAME_SIZES,
-  IMAGE_CATEGORIES,
-  TIMING_UNTIL_FALSE_MATCH_RELEASE,
-} from "../../../configs/game";
+import { availableGameSettings, gameConfigs } from "../../../configs/game";
 import { useAppSelector } from "../../../store";
 import { WebSocketContext } from "../../WebsocketContext";
 import { TPlayerPayload } from "../../../store/slices/players";
@@ -21,6 +16,13 @@ function PlayerCard({
   isClickable: boolean;
 }) {
   const { inviteSend } = useAppSelector((state) => state.gamesReducer);
+  const { mode } = useAppSelector((state) => state.profileReducer);
+
+  const gameSettings =
+    availableGameSettings[mode] || availableGameSettings.default;
+
+  const defaultConfig = gameConfigs[mode] || gameConfigs.default;
+
   const { getPlayers, requestGame, cancelGameRequest } =
     useContext(WebSocketContext);
 
@@ -29,7 +31,7 @@ function PlayerCard({
     defaultConfig.size.toString()
   );
   const [imageCategories, setImageCategories] = useState<string[]>(
-    defaultConfig.imageCategores
+    defaultConfig.imageCategories
   );
   const [timeUntilRelease, setTimeUntilRelease] = useState<string>(
     defaultConfig.timeUntilRelease.toString()
@@ -96,7 +98,7 @@ function PlayerCard({
                 value={boardSize}
                 onChange={(e) => setBoardSize(e.target.value)}
               >
-                {GAME_SIZES.map((size) => (
+                {gameSettings.sizes.map((size) => (
                   <option key={size} value={size}>
                     {size / 2} pairs
                   </option>
@@ -111,7 +113,7 @@ function PlayerCard({
                 value={timeUntilRelease}
                 onChange={(e) => setTimeUntilRelease(e.target.value)}
               >
-                {TIMING_UNTIL_FALSE_MATCH_RELEASE.map((time) => (
+                {gameSettings.timeUntilRelease.map((time) => (
                   <option key={time} value={time}>
                     {time}s
                   </option>
@@ -119,7 +121,7 @@ function PlayerCard({
               </select>
 
               <legend>Please select the image categories for your game:</legend>
-              {IMAGE_CATEGORIES.map((item) => (
+              {gameSettings.imageCategories.map((item) => (
                 <div key={item} className="image_checkbox">
                   <input
                     type="checkbox"
